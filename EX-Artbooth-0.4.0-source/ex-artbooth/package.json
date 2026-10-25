@@ -1,0 +1,48 @@
+{
+  "name": "ex-artbooth",
+  "version": "0.4.0",
+  "description": "A Windows-ready free Photoshop-style image editor MVP with layers, masks, brushes, adjustments, text, and shapes.",
+  "main": "main.js",
+  "author": "EX Artbooth contributors",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win nsis portable",
+    "build:portable": "electron-builder --win portable",
+    "build:dir": "electron-builder --dir",
+    "build:win-dir": "electron-builder --win dir"
+  },
+  "devDependencies": {
+    "electron": "32.3.3",
+    "electron-builder": "25.1.8"
+  },
+  "build": {
+    "appId": "com.exartbooth.app",
+    "productName": "EX Artbooth",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "app/**/*",
+      "package.json",
+      "README.md",
+      "ROADMAP.md"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "artifactName": "EX-Artbooth-${version}-${arch}.${ext}",
+      "signAndEditExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}

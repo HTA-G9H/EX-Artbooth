@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EX Artbooth</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <section id="homeView" class="home-view">
+    <header class="home-topbar">
+      <button id="homeBackBtn" class="ghost home-back hidden">Back</button>
+      <div class="home-title">
+        <div class="home-logo">OP</div>
+        <div>
+          <h1>EX Artbooth</h1>
+          <p id="homeSubtitle">Recent projects</p>
+        </div>
+      </div>
+      <button id="chooseProjectBtn" class="primary choose-btn">Choose</button>
+    </header>
+
+    <main class="home-content">
+      <div id="projectGrid" class="project-grid"></div>
+      <div id="emptyState" class="empty-state hidden">
+        <div class="empty-icon">+</div>
+        <h2>No recent projects yet</h2>
+        <p>Create a blank canvas or open a project file to begin.</p>
+      </div>
+    </main>
+
+    <footer class="home-dock">
+      <div id="homeDockDefault" class="dock-cluster">
+        <button id="newProjectFab" class="dock-button" title="Create a blank project">+</button>
+        <button id="projectInfoBtn" class="dock-button" title="Project information">i</button>
+        <button id="moreProjectsBtn" class="dock-button" title="More project options">•••</button>
+      </div>
+      <div id="selectionActions" class="dock-cluster hidden">
+        <button id="replayBtn" class="dock-button wide" title="Replay project progress">▶ Play</button>
+        <button id="shareBtn" class="dock-button wide" title="Share or export this project">Share</button>
+      </div>
+      <div id="bulkActions" class="dock-cluster hidden">
+        <span id="selectedCountText" class="dock-status">0 selected</span>
+        <button id="bulkFolderBtn" class="dock-button wide" title="Group selected projects into a folder">Folder</button>
+        <button id="bulkDeleteBtn" class="dock-button wide danger-action" title="Delete selected projects">Delete</button>
+        <button id="bulkCancelBtn" class="dock-button wide" title="Exit choose mode">Cancel</button>
+      </div>
+    </footer>
+
+    <aside id="projectInfoPanel" class="home-panel hidden">
+      <h3>Project information</h3>
+      <div class="panel-stat"><span>Total projects</span><strong id="totalProjectsText">0</strong></div>
+      <div class="panel-stat"><span>Total project size</span><strong id="totalProjectSizeText">0 B</strong></div>
+      <p class="panel-note">These are projects stored in this app's local recent-project library.</p>
+    </aside>
+
+    <aside id="morePanel" class="home-panel hidden">
+      <h3>Recently deleted project</h3>
+      <div id="deletedList" class="deleted-list"></div>
+      <p class="panel-note">More project-management options will be added later.</p>
+    </aside>
+
+    <aside id="sharePanel" class="home-panel share-panel hidden">
+      <h3>Share</h3>
+      <button id="downloadPngBtn">Download as image — PNG</button>
+      <button id="downloadJpegBtn">Download as image — JPEG</button>
+      <button id="downloadPsdBtn">Download as image — PSD</button>
+      <button id="shareTimelineBtn">Share timeline — MP4</button>
+      <p class="panel-note">PSD and MP4 exports are placeholders for the next milestone.</p>
+    </aside>
+
+    <div id="replayModal" class="modal hidden">
+      <div class="modal-card">
+        <button id="closeReplayBtn" class="modal-close">×</button>
+        <h3>Progress replay</h3>
+        <canvas id="replayCanvas" width="960" height="540"></canvas>
+        <div class="timeline-bar"><span id="timelineProgress"></span></div>
+        <p id="replayCaption">Rebuilding your project preview...</p>
+      </div>
+    </div>
+  </section>
+
+  <div id="editorView" class="app-shell hidden">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo-mark">OP</div>
+        <div>
+          <strong>EX Artbooth</strong>
+          <span id="documentInfo">1280 × 720</span>
+        </div>
+      </div>
+      <div class="toolbar-group">
+        <button id="homeBtn" title="Return to recent projects">Home</button>
+        <button id="newBtn" title="Create a new image">New</button>
+        <button id="openBtn" title="Open image">Open</button>
+        <button id="importBtn" title="Import image as new layer">Import Layer</button>
+        <button id="savePngBtn" title="Export visible composite as PNG">Export PNG</button>
+        <button id="saveJpgBtn" title="Export visible composite as JPEG">Export JPEG</button>
+        <button id="saveProjectBtn" title="Save editable .exart project">Save Project</button>
+        <button id="openProjectBtn" title="Open .exart project">Open Project</button>
+      </div>
+      <div class="toolbar-group right-tools">
+        <button id="resizeBtn">Resize</button>
+        <button id="fitBtn">Fit</button>
+        <button id="zoomOutBtn">−</button>
+        <span id="zoomLabel">100%</span>
+        <button id="zoomInBtn">+</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="leftbar">
+        <button class="tool active" data-tool="move" title="Pan the canvas view">Move</button>
+        <button class="tool" data-tool="brush" title="Pressure-sensitive brush">Brush</button>
+        <button class="tool" data-tool="eraser" title="Erase selected layer pixels">Eraser</button>
+        <button class="tool" data-tool="heal" title="Simple spot heal / object removal brush">Heal</button>
+        <button class="tool" data-tool="clone" title="Alt-click to set clone source, then paint">Clone</button>
+        <button class="tool" data-tool="text" title="Click canvas to add text layer">Text</button>
+        <button class="tool" data-tool="rect" title="Draw vector rectangle layer">Rect</button>
+        <button class="tool" data-tool="ellipse" title="Draw vector ellipse layer">Ellipse</button>
+        <button class="tool" data-tool="crop" title="Drag crop rectangle, then apply">Crop</button>
+        <div class="divider"></div>
+        <label class="control-label">Color <input id="colorInput" type="color" value="#2fe6a6"></label>
+        <label class="control-label">Brush <input id="brushSize" type="range" min="1" max="160" value="24"><span id="brushSizeText">24</span></label>
+        <label class="control-label">Opacity <input id="brushOpacity" type="range" min="1" max="100" value="100"><span id="brushOpacityText">100%</span></label>
+        <label class="control-label">Font Size <input id="fontSize" type="number" min="6" max="420" value="56"></label>
+        <label class="control-label">Font <input id="fontFamily" type="text" value="Arial"></label>
+        <label class="control-label">Stroke <input id="strokeWidth" type="number" min="0" max="100" value="0"></label>
+        <div class="hint small">Tip: drawing tablets use pointer pressure automatically. For Clone, Alt-click the source first.</div>
+      </aside>
+
+      <section class="canvas-area" id="canvasArea">
+        <canvas id="viewport"></canvas>
+        <div id="statusBar">Ready</div>
+      </section>
+
+      <aside class="rightbar">
+        <section class="panel">
+          <div class="panel-header">
+            <h2>Layers</h2>
+            <div class="mini-actions">
+              <button id="addLayerBtn" title="Add blank raster layer">+ Raster</button>
+              <button id="addAdjustBtn" title="Add non-destructive adjustment layer">+ Adjust</button>
+            </div>
+          </div>
+          <div class="layer-actions">
+            <button id="duplicateLayerBtn">Duplicate</button>
+            <button id="deleteLayerBtn">Delete</button>
+            <button id="moveLayerUpBtn">Up</button>
+            <button id="moveLayerDownBtn">Down</button>
+          </div>
+          <div id="layerList" class="layer-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header"><h2>Selected Layer</h2></div>
+          <label class="control-label">Name <input id="layerName" type="text"></label>
+          <label class="control-label">Layer Opacity <input id="layerOpacity" type="range" min="0" max="100" value="100"><span id="layerOpacityText">100%</span></label>
+          <label class="control-label">Blend Mode
+            <select id="blendMode">
+              <option value="source-over">Normal</option>
+              <option value="multiply">Multiply</option>
+              <option value="screen">Screen</option>
+              <option value="overlay">Overlay</option>
+              <option value="darken">Darken</option>
+              <option value="lighten">Lighten</option>
+              <option value="color-dodge">Color Dodge</option>
+              <option value="color-burn">Color Burn</option>
+              <option value="hard-light">Hard Light</option>
+              <option value="soft-light">Soft Light</option>
+              <option value="difference">Difference</option>
+              <option value="exclusion">Exclusion</option>
+              <option value="hue">Hue</option>
+              <option value="saturation">Saturation</option>
+              <option value="color">Color</option>
+              <option value="luminosity">Luminosity</option>
+            </select>
+          </label>
+          <div class="mask-box">
+            <button id="addMaskBtn">Add Mask</button>
+            <label><input id="editMask" type="checkbox"> Paint mask</label>
+            <select id="maskPaintMode">
+              <option value="hide">Black hides</option>
+              <option value="reveal">White reveals</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header"><h2>Adjustments</h2></div>
+          <label class="control-label">Brightness <input class="adj" data-adj="brightness" type="range" min="-100" max="100" value="0"><span id="brightnessText">0</span></label>
+          <label class="control-label">Contrast <input class="adj" data-adj="contrast" type="range" min="-100" max="100" value="0"><span id="contrastText">0</span></label>
+          <label class="control-label">Exposure <input class="adj" data-adj="exposure" type="range" min="-200" max="200" value="0"><span id="exposureText">0</span></label>
+          <label class="control-label">Saturation <input class="adj" data-adj="saturation" type="range" min="-100" max="100" value="0"><span id="saturationText">0</span></label>
+          <label class="control-label">Hue <input class="adj" data-adj="hue" type="range" min="-180" max="180" value="0"><span id="hueText">0</span></label>
+          <button id="resetAdjustBtn">Reset Adjustments</button>
+          <p class="hint">For raster layers these are non-destructive per-layer settings. For adjustment layers they affect all layers below.</p>
+        </section>
+
+        <section class="panel" id="vectorPanel">
+          <div class="panel-header"><h2>Text / Shape</h2></div>
+          <label class="control-label">Text <textarea id="textValue" rows="3"></textarea></label>
+          <label class="control-label">Fill <input id="fillColor" type="color" value="#2fe6a6"></label>
+          <label class="control-label">Stroke <input id="shapeStrokeColor" type="color" value="#ffffff"></label>
+          <p class="hint">Text and shape layers stay editable in .exart project files.</p>
+        </section>
+
+        <section class="panel crop-panel">
+          <div class="panel-header"><h2>Crop</h2></div>
+          <button id="applyCropBtn">Apply Crop</button>
+          <button id="cancelCropBtn">Cancel Crop</button>
+          <p class="hint">Choose Crop, drag on the canvas, then apply.</p>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <input id="fileInput" type="file" accept="image/*" hidden />
+  <input id="projectInput" type="file" accept=".exart,.openpixel,.json,application/json" hidden />
+  <script src="renderer.js"></script>
+</body>
+</html>
