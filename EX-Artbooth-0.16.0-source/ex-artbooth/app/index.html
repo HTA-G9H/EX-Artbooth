@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EX Artbooth</title>
+  <link rel="icon" href="icon.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true" focusable="false"><defs>
+    <symbol id="ic-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="ic-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="ic-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 11v5"/><path d="M12 8h.01"/></symbol>
+    <symbol id="ic-more-h" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/></symbol>
+    <symbol id="ic-more-v" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="12" cy="19" r="1.3"/></symbol>
+    <symbol id="ic-play" viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></symbol>
+    <symbol id="ic-stop" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10"/></symbol>
+    <symbol id="ic-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="ic-check" viewBox="0 0 24 24"><path d="M4.5 12.5l5 5 10-11"/></symbol>
+    <symbol id="ic-layers" viewBox="0 0 24 24"><path d="M12 3.5L3.5 8 12 12.5 20.5 8z"/><path d="M3.5 12.5L12 17l8.5-4.5"/></symbol>
+    <symbol id="ic-trash" viewBox="0 0 24 24"><path d="M4.5 7h15"/><path d="M9.5 7V4.5h5V7"/><path d="M6.5 7l1 12.5h9L17.5 7"/><path d="M10.5 10.5v6M13.5 10.5v6"/></symbol>
+    <symbol id="ic-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11"/><path d="M15.5 5.5h-11v11"/></symbol>
+    <symbol id="ic-flip-h" viewBox="0 0 24 24"><path d="M12 3.5v17"/><path d="M9 7.5L4.5 12 9 16.5z"/><path d="M15 7.5L19.5 12 15 16.5z"/></symbol>
+    <symbol id="ic-merge-down" viewBox="0 0 24 24"><path d="M12 4v11"/><path d="M8 11l4 4 4-4"/><path d="M4.5 19.5h15"/></symbol>
+    <symbol id="ic-download" viewBox="0 0 24 24"><path d="M12 3.5v11"/><path d="M8 10.5l4 4 4-4"/><path d="M4.5 19.5h15"/></symbol>
+    <symbol id="ic-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M4 17l5-5 4 4 2.5-2.5 4.5 4.5"/></symbol>
+    <symbol id="ic-adjust" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 010 16z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="ic-invert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4v16"/><path d="M12 4a8 8 0 000 16" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="ic-transform" viewBox="0 0 24 24"><path d="M12 3.5v17M3.5 12h17"/><path d="M12 3.5l-2.5 2.5M12 3.5l2.5 2.5M12 20.5l-2.5-2.5M12 20.5l2.5-2.5M3.5 12l2.5-2.5M3.5 12l2.5 2.5M20.5 12l-2.5-2.5M20.5 12l-2.5 2.5"/></symbol>
+    <symbol id="ic-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17"/><path d="M12 3.5v17M3.5 12h17"/></symbol>
+    <symbol id="ic-clip" viewBox="0 0 24 24"><path d="M19 5.5v7a4 4 0 01-4 4H6"/><path d="M9 13.5l-3 3 3 3"/></symbol>
+    <symbol id="ic-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9"/><path d="M8.5 10.5V8a3.5 3.5 0 017 0v2.5"/></symbol>
+    <symbol id="ic-alpha" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17"/><path d="M3.5 12h17M12 3.5v17" stroke-dasharray="2 2"/><path d="M12 12h8.5v8.5H12z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="ic-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 6 12 6s9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6z"/><circle cx="12" cy="12" r="2.5"/></symbol>
+    <symbol id="ic-eye-off" viewBox="0 0 24 24"><path d="M4 4l16 16"/><path d="M9.5 6.5A9.6 9.6 0 0112 6c6 0 9.5 6 9.5 6a16 16 0 01-3.3 3.8"/><path d="M6.3 8.2A16 16 0 002.5 12S6 18 12 18a9.4 9.4 0 003.2-.55"/></symbol>
+    <symbol id="ic-grip" viewBox="0 0 24 24"><path d="M8 7h8M8 12h8M8 17h8"/></symbol>
+    <symbol id="ic-mask" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15"/><path d="M12 4.5v15" /><path d="M3.5 4.5H12v15H3.5z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="ic-chevron-d" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
+    <symbol id="ic-chevron-u" viewBox="0 0 24 24"><path d="M6 14.5l6-6 6 6"/></symbol>
+    <symbol id="ic-chevron-l" viewBox="0 0 24 24"><path d="M14.5 5.5l-6 6.5 6 6.5"/></symbol>
+    <symbol id="ic-fx" viewBox="0 0 24 24"><path d="M12 3.5l2 5.5 5.5 2-5.5 2-2 5.5-2-5.5L4.5 11l5.5-2z"/><path d="M18.5 16.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></symbol>
+    <symbol id="ic-share" viewBox="0 0 24 24"><circle cx="17.5" cy="6" r="2.5"/><circle cx="6.5" cy="12" r="2.5"/><circle cx="17.5" cy="18" r="2.5"/><path d="M8.7 10.8l6.6-3.6M8.7 13.2l6.6 3.6"/></symbol>
+    <symbol id="ic-folder" viewBox="0 0 24 24"><path d="M3.5 6.5h6l2 2.5h9v10.5h-17z"/></symbol>
+    <symbol id="ic-back" viewBox="0 0 24 24"><path d="M19.5 12h-15"/><path d="M10.5 6l-6 6 6 6"/></symbol>
+  </defs></svg>
+  <section id="homeView" class="home-view">
+    <header class="home-topbar">
+      <button id="homeBackBtn" class="ghost home-back hidden"><svg class="ic" aria-hidden="true"><use href="#ic-back"/></svg><span data-i18n="back">Back</span></button>
+      <div class="home-title">
+        <img class="home-logo" src="icon.png" alt="EX Artbooth">
+        <div>
+          <h1>EX Artbooth</h1>
+          <p id="homeSubtitle" data-i18n="recentProjects">Recent projects</p>
+        </div>
+      </div>
+      <button id="chooseProjectBtn" class="primary choose-btn" data-i18n="choose">Choose</button>
+    </header>
+
+    <main class="home-content">
+      <div id="projectGrid" class="project-grid"></div>
+      <div id="emptyState" class="empty-state hidden">
+        <div class="empty-icon"><svg class="ic ic-lg" aria-hidden="true"><use href="#ic-plus"/></svg></div>
+        <h2 data-i18n="noProjects">No recent projects yet</h2>
+        <p>Create a blank canvas or open a project file to begin.</p>
+      </div>
+    </main>
+
+    <footer class="home-dock">
+      <div id="homeDockDefault" class="dock-cluster">
+        <button id="newProjectFab" class="dock-button" title="Create a blank project"><svg class="ic" aria-hidden="true"><use href="#ic-plus"/></svg></button>
+        <button id="projectInfoBtn" class="dock-button" title="Project information"><svg class="ic" aria-hidden="true"><use href="#ic-info"/></svg></button>
+        <button id="moreProjectsBtn" class="dock-button" title="More project options"><svg class="ic" aria-hidden="true"><use href="#ic-more-h"/></svg></button>
+      </div>
+      <div id="selectionActions" class="dock-cluster hidden">
+        <button id="replayBtn" class="dock-button wide" title="Replay project progress"><svg class="ic" aria-hidden="true"><use href="#ic-play"/></svg><span data-i18n="play">Play</span></button>
+        <button id="shareBtn" class="dock-button wide" title="Share or export this project"><svg class="ic" aria-hidden="true"><use href="#ic-share"/></svg><span data-i18n="share">Share</span></button>
+      </div>
+      <div id="bulkActions" class="dock-cluster hidden">
+        <span id="selectedCountText" class="dock-status">0 selected</span>
+        <button id="bulkFolderBtn" class="dock-button wide" title="Group selected projects into a folder"><svg class="ic" aria-hidden="true"><use href="#ic-folder"/></svg><span data-i18n="folder">Folder</span></button>
+        <button id="bulkDeleteBtn" class="dock-button wide danger-action" title="Delete selected projects"><svg class="ic" aria-hidden="true"><use href="#ic-trash"/></svg><span data-i18n="delete">Delete</span></button>
+        <button id="bulkCancelBtn" class="dock-button wide" title="Exit choose mode" data-i18n="cancel">Cancel</button>
+      </div>
+    </footer>
+
+    <aside id="projectInfoPanel" class="home-panel hidden">
+      <h3 data-i18n="projectInformation">Project information</h3>
+      <div class="panel-stat"><span>Total projects</span><strong id="totalProjectsText">0</strong></div>
+      <div class="panel-stat"><span>Total project size</span><strong id="totalProjectSizeText">0 B</strong></div>
+      <p class="panel-note">These are projects stored in this app's local recent-project library.</p>
+    </aside>
+
+    <aside id="morePanel" class="home-panel hidden">
+      <h3 data-i18n="recentlyDeleted">Recently deleted project</h3>
+      <div id="deletedList" class="deleted-list"></div>
+      <p class="panel-note">More project-management options will be added later.</p>
+    </aside>
+
+    <aside id="sharePanel" class="home-panel share-panel hidden">
+      <h3 data-i18n="share">Share</h3>
+      <button id="downloadPngBtn">Download as image — PNG</button>
+      <button id="downloadJpegBtn">Download as image — JPEG</button>
+      <button id="downloadPsdBtn">Download as image — PSD</button>
+      <button id="shareTimelineBtn">Share timeline — MP4</button>
+      <p class="panel-note">PSD and MP4 exports are placeholders for the next milestone.</p>
+    </aside>
+
+    <div id="replayModal" class="modal hidden">
+      <div class="modal-card">
+        <button id="closeReplayBtn" class="modal-close" title="Close"><svg class="ic" aria-hidden="true"><use href="#ic-close"/></svg></button>
+        <h3 data-i18n="progressReplay">Progress replay</h3>
+        <canvas id="replayCanvas" width="960" height="540"></canvas>
+        <div class="timeline-bar"><span id="timelineProgress"></span></div>
+        <p id="replayCaption">Rebuilding your project preview...</p>
+      </div>
+    </div>
+  </section>
+
+  <div id="editorView" class="app-shell hidden">
+    <header class="topbar">
+      <div class="brand">
+        <img class="logo-mark" src="icon.png" alt="EX Artbooth">
+        <div>
+          <strong>EX Artbooth</strong>
+          <span id="documentInfo">1280 × 720</span>
+        </div>
+      </div>
+      <div class="toolbar-group right-tools">
+        <button id="resizeBtn" data-i18n="resize">Resize</button>
+        <button id="fitBtn" data-i18n="fit">Fit</button>
+        <button id="zoomOutBtn" title="Zoom out"><svg class="ic" aria-hidden="true"><use href="#ic-minus"/></svg></button>
+        <span id="zoomLabel">100%</span>
+        <button id="zoomInBtn" title="Zoom in"><svg class="ic" aria-hidden="true"><use href="#ic-plus"/></svg></button>
+        <button id="langToggleBtn" class="lang-toggle" title="Switch language">EN</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <aside class="leftbar">
+        <button class="tool active" data-tool="brush" title="Pressure-sensitive brush" data-i18n="toolBrush">Brush</button>
+        <button class="tool" data-tool="eraser" title="Erase selected layer pixels" data-i18n="toolEraser">Eraser</button>
+        <button class="tool" data-tool="heal" title="Simple spot heal / object removal brush" data-i18n="toolHeal">Heal</button>
+        <button class="tool" data-tool="clone" title="Alt-click to set clone source, then paint" data-i18n="toolClone">Clone</button>
+        <button class="tool" data-tool="text" title="Click canvas to add text layer" data-i18n="toolText">Text</button>
+        <button class="tool" data-tool="rect" title="Draw vector rectangle layer" data-i18n="toolRect">Rect</button>
+        <button class="tool" data-tool="ellipse" title="Draw vector ellipse layer" data-i18n="toolEllipse">Ellipse</button>
+        <button class="tool" data-tool="crop" title="Drag crop rectangle, then apply" data-i18n="toolCrop">Crop</button>
+        <div class="divider"></div>
+        <label class="control-label">Color <input id="colorInput" type="color" value="#2fe6a6"></label>
+        <label class="control-label">Brush <input id="brushSize" type="range" min="1" max="160" value="24"><span id="brushSizeText">24</span></label>
+        <label class="control-label">Opacity <input id="brushOpacity" type="range" min="1" max="100" value="100"><span id="brushOpacityText">100%</span></label>
+        <label class="control-label">Font Size <input id="fontSize" type="number" min="6" max="420" value="56"></label>
+        <label class="control-label">Font <input id="fontFamily" type="text" value="Arial"></label>
+        <label class="control-label">Stroke <input id="strokeWidth" type="number" min="0" max="100" value="0"></label>
+        <div class="hint small">Tip: drawing tablets use pointer pressure automatically. For Clone, Alt-click the source first.</div>
+      </aside>
+
+      <section class="canvas-area" id="canvasArea">
+        <canvas id="viewport"></canvas>
+        <canvas id="cursorOverlay"></canvas>
+        <div id="statusBar">Ready</div>
+
+        <div id="frameBar" class="frame-bar">
+          <div class="frame-bar-left">
+            <button id="framePlayBtn" class="frame-ctrl" title="Play the frame sequence"><svg class="ic" aria-hidden="true"><use href="#ic-play"/></svg></button>
+            <label class="frame-fps" title="Frames per second: type any value from 0.001 upward">
+              <input id="frameFpsInput" type="number" min="0.001" step="0.001" value="24">
+              <span>fps</span>
+            </label>
+            <label class="frame-onion" title="Show the previous frame as a faded ghost">
+              <input id="onionToggle" type="checkbox" checked>
+              <span>Onion</span>
+            </label>
+          </div>
+          <div id="frameStrip" class="frame-strip"></div>
+          <div class="frame-bar-right">
+            <button id="addFrameBtn" class="frame-add" title="Add a new frame"><svg class="ic" aria-hidden="true"><use href="#ic-plus"/></svg><span data-i18n="addFrameBtn">Frame</span></button>
+          </div>
+        </div>
+
+        <button id="layerPanelBtn" class="layer-fab" title="Layers" data-i18n-title="layers">
+          <svg class="ic layer-fab-glyph" aria-hidden="true"><use href="#ic-layers"/></svg>
+          <span class="layer-fab-count" id="layerFabCount">1</span>
+        </button>
+
+        <section id="layerPanel" class="layer-panel hidden" aria-label="Layers">
+          <header class="layer-panel-head">
+            <h2 data-i18n="layers">Layers</h2>
+            <button id="layerPanelClose" class="layer-panel-close" title="Close"><svg class="ic" aria-hidden="true"><use href="#ic-close"/></svg></button>
+          </header>
+
+          <div class="layer-panel-body">
+            <div class="layer-panel-left">
+              <div class="layer-canvas-preview"><img id="layerPanelPreview" alt=""></div>
+              <div class="layer-left-actions">
+                <button id="addLayerBtn" class="lp-icon" title="Add layer" data-i18n-title="addLayer"><svg class="ic" aria-hidden="true"><use href="#ic-plus"/></svg></button>
+                <button id="lpFlipLayer" class="lp-icon" title="Flip layer horizontally" data-i18n-title="flipLayer"><svg class="ic" aria-hidden="true"><use href="#ic-flip-h"/></svg></button>
+                <button id="duplicateLayerBtn" class="lp-icon" title="Duplicate layer" data-i18n-title="duplicateLayer"><svg class="ic" aria-hidden="true"><use href="#ic-copy"/></svg></button>
+                <button id="lpMergeDown" class="lp-icon" title="Merge down" data-i18n-title="mergeDown"><svg class="ic" aria-hidden="true"><use href="#ic-merge-down"/></svg></button>
+                <button id="lpImportLayer" class="lp-icon" title="Import image as layer" data-i18n-title="importLayer"><svg class="ic" aria-hidden="true"><use href="#ic-image"/></svg></button>
+                <button id="addAdjustBtn" class="lp-icon" title="Add adjustment layer" data-i18n-title="addAdjust"><svg class="ic" aria-hidden="true"><use href="#ic-adjust"/></svg></button>
+                <button id="deleteLayerBtn" class="lp-icon danger-icon" title="Delete layer" data-i18n-title="deleteLayer"><svg class="ic" aria-hidden="true"><use href="#ic-trash"/></svg></button>
+              </div>
+            </div>
+
+            <div class="layer-panel-main">
+              <button type="button" id="lpSelectionRow" class="selection-row">
+                <span class="selection-thumb"></span>
+                <span class="selection-text">
+                  <strong data-i18n="selectionLayer">Selection layer</strong>
+                  <em data-i18n="noSelection">No selection</em>
+                </span>
+              </button>
+
+              <div id="layerList" class="layer-list"></div>
+
+              <div class="background-row">
+                <span data-i18n="backgroundColor">Background</span>
+                <div class="bg-swatches">
+                  <button type="button" class="bg-swatch" data-bg-swatch="color" title="Solid color" data-i18n-title="bgColor"></button>
+                  <button type="button" class="bg-swatch" data-bg-swatch="grid" title="Transparent grid" data-i18n-title="bgGrid"></button>
+                  <button type="button" class="bg-swatch" data-bg-swatch="grid-dark" title="Transparent grid (dark)" data-i18n-title="bgGridDark"></button>
+                  <button type="button" class="bg-swatch bg-swatch-more" data-bg-swatch="more" title="Textures and more" data-i18n-title="bgMore"></button>
+                </div>
+              </div>
+            </div>
+
+            <div class="layer-panel-rail">
+              <button type="button" class="rail-btn" data-rail="background" title="Background" data-i18n-title="backgroundColor"><svg class="ic" aria-hidden="true"><use href="#ic-grid"/></svg></button>
+              <button type="button" class="rail-btn" data-rail="invert" title="Invert layer colors" data-i18n-title="invert"><svg class="ic" aria-hidden="true"><use href="#ic-invert"/></svg></button>
+              <button type="button" class="rail-btn" data-rail="transform" title="Transform (planned)" data-i18n-title="transform"><svg class="ic" aria-hidden="true"><use href="#ic-transform"/></svg></button>
+              <button type="button" class="rail-btn" data-rail="flip" title="Flip layer horizontally" data-i18n-title="flipLayer"><svg class="ic" aria-hidden="true"><use href="#ic-flip-h"/></svg></button>
+              <button type="button" class="rail-btn" data-rail="merge" title="Merge down" data-i18n-title="mergeDown"><svg class="ic" aria-hidden="true"><use href="#ic-merge-down"/></svg></button>
+              <button type="button" class="rail-btn" data-rail="export" title="Export this layer as PNG" data-i18n-title="exportLayer"><svg class="ic" aria-hidden="true"><use href="#ic-download"/></svg></button>
+              <button type="button" class="rail-btn" data-rail="delete" title="Delete layer" data-i18n-title="deleteLayer"><svg class="ic" aria-hidden="true"><use href="#ic-trash"/></svg></button>
+              <button type="button" class="rail-btn" data-rail="fx" title="Effects (planned)" data-i18n-title="effects"><svg class="ic" aria-hidden="true"><use href="#ic-fx"/></svg></button>
+              <button type="button" class="rail-btn" data-rail="more" title="More" data-i18n-title="more"><svg class="ic" aria-hidden="true"><use href="#ic-more-v"/></svg></button>
+            </div>
+          </div>
+
+          <footer class="layer-panel-foot">
+            <button type="button" id="lpClipping" class="foot-toggle" title="Clipping mask" data-i18n-title="clipping"><svg class="ic" aria-hidden="true"><use href="#ic-clip"/></svg></button>
+            <button type="button" id="lpAlphaLock" class="foot-toggle" title="Alpha lock" data-i18n-title="alphaLock"><svg class="ic" aria-hidden="true"><use href="#ic-alpha"/></svg></button>
+            <button type="button" id="lpLockLayer" class="foot-toggle" title="Lock layer" data-i18n-title="lockLayer"><svg class="ic" aria-hidden="true"><use href="#ic-lock"/></svg></button>
+            <select id="lpBlend" class="foot-blend"></select>
+            <div class="lp-opacity">
+              <span id="lpOpacityText">100%</span>
+              <button type="button" id="lpOpacityMinus" class="lp-step" title="Less opacity"><svg class="ic" aria-hidden="true"><use href="#ic-minus"/></svg></button>
+              <input id="lpOpacity" type="range" min="0" max="100" value="100">
+              <button type="button" id="lpOpacityPlus" class="lp-step" title="More opacity"><svg class="ic" aria-hidden="true"><use href="#ic-plus"/></svg></button>
+            </div>
+          </footer>
+        </section>
+      </section>
+
+      <aside class="rightbar">
+        <section class="panel">
+          <div class="panel-header"><h2 data-i18n="selectedLayer">Selected Layer</h2></div>
+          <button id="backgroundStyleBtn" class="background-style-btn hidden" data-i18n="changeBackground">Change background…</button>
+          <label class="control-label">Name <input id="layerName" type="text"></label>
+          <label class="control-label">Layer Opacity <input id="layerOpacity" type="range" min="0" max="100" value="100"><span id="layerOpacityText">100%</span></label>
+          <label class="control-label">Blend Mode
+            <select id="blendMode">
+              <option value="source-over">Normal</option>
+              <option value="multiply">Multiply</option>
+              <option value="screen">Screen</option>
+              <option value="overlay">Overlay</option>
+              <option value="darken">Darken</option>
+              <option value="lighten">Lighten</option>
+              <option value="color-dodge">Color Dodge</option>
+              <option value="color-burn">Color Burn</option>
+              <option value="hard-light">Hard Light</option>
+              <option value="soft-light">Soft Light</option>
+              <option value="difference">Difference</option>
+              <option value="exclusion">Exclusion</option>
+              <option value="hue">Hue</option>
+              <option value="saturation">Saturation</option>
+              <option value="color">Color</option>
+              <option value="luminosity">Luminosity</option>
+            </select>
+          </label>
+          <div class="mask-box">
+            <button id="addMaskBtn" data-i18n="addMask">Add Mask</button>
+            <label><input id="editMask" type="checkbox"> Paint mask</label>
+            <select id="maskPaintMode">
+              <option value="hide">Black hides</option>
+              <option value="reveal">White reveals</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="panel">
+          <div class="panel-header"><h2 data-i18n="adjustments">Adjustments</h2></div>
+          <label class="control-label">Brightness <input class="adj" data-adj="brightness" type="range" min="-100" max="100" value="0"><span id="brightnessText">0</span></label>
+          <label class="control-label">Contrast <input class="adj" data-adj="contrast" type="range" min="-100" max="100" value="0"><span id="contrastText">0</span></label>
+          <label class="control-label">Exposure <input class="adj" data-adj="exposure" type="range" min="-200" max="200" value="0"><span id="exposureText">0</span></label>
+          <label class="control-label">Saturation <input class="adj" data-adj="saturation" type="range" min="-100" max="100" value="0"><span id="saturationText">0</span></label>
+          <label class="control-label">Hue <input class="adj" data-adj="hue" type="range" min="-180" max="180" value="0"><span id="hueText">0</span></label>
+          <button id="resetAdjustBtn" data-i18n="resetAdjustments">Reset Adjustments</button>
+          <p class="hint">For raster layers these are non-destructive per-layer settings. For adjustment layers they affect all layers below.</p>
+        </section>
+
+        <section class="panel" id="vectorPanel">
+          <div class="panel-header"><h2 data-i18n="textShape">Text / Shape</h2></div>
+          <label class="control-label">Text <textarea id="textValue" rows="3"></textarea></label>
+          <label class="control-label">Fill <input id="fillColor" type="color" value="#2fe6a6"></label>
+          <label class="control-label">Stroke <input id="shapeStrokeColor" type="color" value="#ffffff"></label>
+          <p class="hint">Text and shape layers stay editable in .exart project files.</p>
+        </section>
+
+        <section class="panel crop-panel">
+          <div class="panel-header"><h2 data-i18n="cropPanel">Crop</h2></div>
+          <button id="applyCropBtn" data-i18n="applyCrop">Apply Crop</button>
+          <button id="cancelCropBtn" data-i18n="cancelCrop">Cancel Crop</button>
+          <p class="hint">Choose Crop, drag on the canvas, then apply.</p>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <input id="fileInput" type="file" accept="image/*" hidden />
+  <input id="projectInput" type="file" accept=".exart,.openpixel,.json,application/json" hidden />
+  <script src="color.js"></script>
+  <script src="mp4.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
