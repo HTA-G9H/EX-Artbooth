@@ -1,0 +1,85 @@
+{
+  "comment": "Texture files used for the background layer. Drop image files in this folder and list them here. 'id' keeps existing projects pointing at the right texture.",
+  "textures": [
+    {
+      "id": "brick",
+      "name": "Brick",
+      "file": "brick.jpg"
+    },
+    {
+      "id": "cobblestone",
+      "name": "Cobblestone",
+      "file": "cobblestone.jpg"
+    },
+    {
+      "id": "concrete",
+      "name": "Concrete",
+      "file": "concrete.jpg"
+    },
+    {
+      "id": "corrodedmetal",
+      "name": "Corroded Metal",
+      "file": "corrodedmetal.jpg"
+    },
+    {
+      "id": "diamondplate",
+      "name": "Diamond Plate",
+      "file": "diamondplate.jpg"
+    },
+    {
+      "id": "fabric",
+      "name": "Fabric",
+      "file": "fabric.jpg"
+    },
+    {
+      "id": "glass",
+      "name": "Glass",
+      "file": "glass.jpg"
+    },
+    {
+      "id": "granite",
+      "name": "Granite",
+      "file": "granite.jpg"
+    },
+    {
+      "id": "grass",
+      "name": "Grass",
+      "file": "grass.jpg"
+    },
+    {
+      "id": "marble",
+      "name": "Marble",
+      "file": "marble.jpg"
+    },
+    {
+      "id": "metal",
+      "name": "Metal",
+      "file": "metal.jpg"
+    },
+    {
+      "id": "pebble",
+      "name": "Pebble",
+      "file": "pebble.jpg"
+    },
+    {
+      "id": "sand",
+      "name": "Sand",
+      "file": "sand.jpg"
+    },
+    {
+      "id": "slate",
+      "name": "Slate",
+      "file": "slate.jpg"
+    },
+    {
+      "id": "wood",
+      "name": "Wood",
+      "file": "wood.jpg"
+    },
+    {
+      "id": "woodplanks",
+      "name": "Wood Planks",
+      "file": "woodplanks.jpg"
+    }
+  ]
+}

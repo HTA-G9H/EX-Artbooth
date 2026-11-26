@@ -1,6 +1,6 @@
 {
   "name": "ex-artbooth",
-  "version": "0.4.0",
+  "version": "0.16.0",
   "description": "A Windows-ready free Photoshop-style image editor MVP with layers, masks, brushes, adjustments, text, and shapes.",
   "main": "main.js",
   "author": "EX Artbooth contributors",
@@ -10,25 +10,32 @@
     "build:win": "electron-builder --win nsis portable",
     "build:portable": "electron-builder --win portable",
     "build:dir": "electron-builder --dir",
-    "build:win-dir": "electron-builder --win dir"
+    "build:win-dir": "electron-builder --win dir",
+    "check": "node tools/check-classes.js",
+    "ui-smoke": "node tools/ui-smoke.js",
+    "undo-test": "node tools/undo-test.js",
+    "mp4-test": "node tools/mp4-test.js",
+    "bg-scope-test": "node tools/bg-scope-test.js",
+    "cursor-tool-test": "node tools/cursor-tool-test.js",
+    "ui-preview": "node tools/make-ui-preview.js"
   },
   "devDependencies": {
     "electron": "32.3.3",
-    "electron-builder": "25.1.8"
+    "electron-builder": "25.1.8",
+    "resedit": "^3.1.0"
   },
   "build": {
     "appId": "com.exartbooth.app",
     "productName": "EX Artbooth",
     "directories": {
-      "output": "release"
+      "output": "release",
+      "buildResources": "appicons"
     },
     "files": [
       "main.js",
       "preload.js",
       "app/**/*",
-      "package.json",
-      "README.md",
-      "ROADMAP.md"
+      "package.json"
     ],
     "win": {
       "target": [
@@ -36,13 +43,21 @@
         "portable"
       ],
       "artifactName": "EX-Artbooth-${version}-${arch}.${ext}",
-      "signAndEditExecutable": false
+      "signAndEditExecutable": false,
+      "icon": "appicons/icon.ico"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
-    }
+    },
+    "compression": "maximum",
+    "asar": true,
+    "electronLanguages": [
+      "en-US"
+    ],
+    "removePackageScripts": true,
+    "afterPack": "tools/after-pack.js"
   }
 }
